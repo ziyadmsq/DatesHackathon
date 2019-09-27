@@ -77,7 +77,7 @@ def generate_farm(owner, workers):
 
 def generate_tree():
     format = '%m/%d/%y %H:%M:%S'
-    date_start = datetime.strptime('09/19/00 13:55:26', format)
+    date_start = datetime.strptime('01/19/19 13:55:26', format)
     date_end = datetime.strptime('09/26/19 13:55:26', format)
     types = ["Barhi", "Thoory", "Halawi", "Medjool", "Khadrawy", "Deglet Noor", "Fard", "Zahidi", "Dayri"]
 
@@ -138,7 +138,7 @@ def generate_tree():
 
 def generate_workers(owner):
     format = '%m/%d/%y %H:%M:%S'
-    date_start = datetime.strptime('09/19/00 13:55:26', format)
+    date_start = datetime.strptime('01/19/19 13:55:26', format)
     date_end = datetime.strptime('09/26/19 13:55:26', format)
 
     workers = []
@@ -158,11 +158,6 @@ def generate_workers(owner):
         )
 
         date = random_date(date_start, date_end)
-
-        try:
-            palmTrees = palm_trees[i]
-        except:
-            palmTrees = []
 
         data = {
             u'owner': owner,
@@ -244,4 +239,4 @@ def get_worker_trees(worker):
     return tree_ids
 
 if __name__ == '__main__':
-    generate_owners(5)
+    generate_owners(1)
