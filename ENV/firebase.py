@@ -104,10 +104,11 @@ def generate_tree():
 
         water_amount = random.randint(20, 80)
 
-        pesticide_amount = random.randint(10, 100) / 100
+        pesticide_amount = random.randint(10, 100)
 
         temp_degree = random.randint(15, 40)
-        temp_humidity = random.randint(10, 100) / 100
+        temp_soil_humidity = random.randint(10, 100)
+        temp_air_humidity = random.randint(10, 100)
 
         harvest_list.append({
             'date': date,
@@ -128,7 +129,8 @@ def generate_tree():
         temp_list.append({
             'date': date,
             'degree': temp_degree,
-            'humidity': temp_humidity
+            'soil_humidity': temp_soil_humidity,
+            'air_humidity': temp_air_humidity
         })
 
     return tree
@@ -180,7 +182,8 @@ def post_health_report(data):
     data_doc = {
         'date': datetime.now(),
         'degree': data['degree'],
-        'humidity': data['humidity']
+        'soil_humidity': data['soil_humidity'],
+        'air_humidity': data['air_humidity']
     }
 
     update_in_transaction(transaction, tree_ref, data_doc)
@@ -240,8 +243,4 @@ def get_worker_trees(worker):
 
     return tree_ids
 
-test = {
-    'id':'05dE3UD82A6TIMkS8jcT',
-    'degree': 30,
-    'humidity': 0.37
-}
+generate_owners(5)
