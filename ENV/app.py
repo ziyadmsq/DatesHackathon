@@ -35,6 +35,19 @@ class TreesListAPI(Resource):
 class TreesAPI(Resource):
     def get(self, id):
         json_data = get_tree(id)
+
+        for harvest in json_data['harvest']:
+            harvest['date'] = harvest['date'].strftime('%m/%d/%Y')
+
+        for pesticide in json_data['pesticide']:
+            pesticide['date'] = pesticide['date'].strftime('%m/%d/%Y')
+
+        for temp in json_data['temp']:
+            temp['date'] = temp['date'].strftime('%m/%d/%Y')
+
+        for water in json_data['water']:
+            water['date'] = water['date'].strftime('%m/%d/%Y')
+
         return json.dumps(json_data)
 
     def post(self, id):
