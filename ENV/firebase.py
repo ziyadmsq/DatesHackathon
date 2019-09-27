@@ -243,4 +243,5 @@ def get_worker_trees(worker):
 
     return tree_ids
 
-generate_owners(5)
+if __name__ == '__main__':
+    generate_owners(5)

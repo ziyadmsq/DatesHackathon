@@ -1,18 +1,50 @@
 from flask import Flask, request, session, render_template, url_for, request, redirect
 from flask_restful import Resource, Api
+from firebase import *
 import json
 
 app = Flask(__name__)
 api = Api(app)
 
-class DatesHealth(Resource):
-    def get(self):
+class ArduinoReportAPI(Resource):
+    def get(self, id):
         return None
 
-    def post(self):
-        return None
+    def post(self, id):
+        json_data = request.get_json()
 
-api.add_resource(DatesHealth, '/health-report')
+        data = {
+            'id': json_data.get('id'),
+            'degree': json_data.get('temp'),
+            'soil_humidity': json_data.get('soilMoisture'),
+            'air_humidity': json_data.get('airHumidity')
+        }
+
+        post_health_report(data)
+
+        return 'Success'
+
+class TreesListAPI(Resource):
+    def get(self, owner):
+        json_data = get_trees(owner)
+        return json.dumps(json_data)
+
+    def post(self, owner):
+        return get_trees(owner)
+
+class TreesAPI(Resource):
+    def get(self, id):
+        json_data = get_tree(id)
+        return json.dumps(json_data)
+
+    def post(self, id):
+        json_data = get_tree(id)
+        return json.dumps(json_data)
+
+
+api.add_resource(ArduinoReportAPI, '/api/health-report/<id>')
+api.add_resource(TreesListAPI, '/api/trees/<owner>')
+api.add_resource(TreesAPI, '/api/tree/<id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
