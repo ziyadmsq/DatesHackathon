@@ -5,17 +5,6 @@ import PageSpinner from 'components/PageSpinner';
 import AuthPage from 'pages/AuthPage';
 import TreePage from 'pages/TreePage';
 import React from 'react';
-<<<<<<< HEAD
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
-=======
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './styles/reduction.scss';
@@ -96,7 +85,6 @@ class App extends React.Component {
       </BrowserRouter>
     );
   }
->>>>>>> 670b56386e0ac05b1d57a0f82f50071ff011498b
 }
 
 const query = ({ width }) => {
