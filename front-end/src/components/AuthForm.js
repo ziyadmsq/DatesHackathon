@@ -53,13 +53,7 @@ class AuthForm extends React.Component {
       <Form onSubmit={this.handleSubmit}>
         {showLogo && (
           <div className="text-center pb-4">
-            <img
-              src={logo200Image}
-              className="rounded"
-              style={{ width: 60, height: 60, cursor: 'pointer' }}
-              alt="logo"
-              onClick={onLogoClick}
-            />
+            
           </div>
         )}
         <FormGroup>
@@ -92,7 +86,6 @@ class AuthForm extends React.Component {
         </Button>
 
         <div className="text-center pt-1">
-          <h6>or</h6>
           <h6>
             {this.isSignup ? (
               <a href="#login" onClick={this.changeAuthState(STATE_LOGIN)}>
@@ -100,7 +93,7 @@ class AuthForm extends React.Component {
               </a>
             ) : (
               <a href="#signup" onClick={this.changeAuthState(STATE_SIGNUP)}>
-                Signup
+                
               </a>
             )}
           </h6>

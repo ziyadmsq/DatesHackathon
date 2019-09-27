@@ -39,6 +39,21 @@ const WidgetPage = () => {
                 bgColor={bgColor}
                 icon={icon}
                 title={title}
+                subtitle={"dsf"}
+                {...restProps}
+              />
+            </Col>
+          )
+        )}
+      </Row>
+      <Row>
+        {iconWidgetsData.map(
+          ({ bgColor, icon, title, subtitle, ...restProps }, index) => (
+            <Col key={index} lg={4} md={6} sm={6} xs={12} className="mb-3">
+              <IconWidget
+                bgColor={bgColor}
+                icon={icon}
+                title={title}
                 subtitle={subtitle}
                 {...restProps}
               />
