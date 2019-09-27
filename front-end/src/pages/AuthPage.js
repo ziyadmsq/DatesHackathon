@@ -17,6 +17,7 @@ class AuthPage extends React.Component {
 
   render() {
     return (
+      
       <Row
         style={{
           height: '100vh',
