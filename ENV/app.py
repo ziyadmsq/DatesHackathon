@@ -41,10 +41,31 @@ class TreesAPI(Resource):
         json_data = get_tree(id)
         return json.dumps(json_data)
 
+class WorkersListAPI(Resource):
+    def get(self, owner):
+        json_data = get_workers(owner)
+        return json.dumps(json_data)
+
+    def post(self, owner):
+        return get_workers(owner)
+
+class WorkersAPI(Resource):
+    def get(self, id):
+        json_data = get_worker(id)
+        return json.dumps(json_data)
+
+    def post(self, id):
+        json_data = get_worker(id)
+        return json.dumps(json_data)
+
 
 api.add_resource(ArduinoReportAPI, '/api/health-report/<id>')
+
 api.add_resource(TreesListAPI, '/api/trees/<owner>')
+api.add_resource(WorkersListAPI, '/api/workers/<owner>')
+
 api.add_resource(TreesAPI, '/api/tree/<id>')
+api.add_resource(WorkersAPI, '/api/worker/<id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
