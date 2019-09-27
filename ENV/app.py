@@ -30,7 +30,7 @@ class TreesListAPI(Resource):
         return json.dumps(json_data)
 
     def post(self, owner):
-        return get_trees(owner)
+        None
 
 class TreesAPI(Resource):
     def get(self, id):
@@ -51,8 +51,7 @@ class TreesAPI(Resource):
         return json.dumps(json_data)
 
     def post(self, id):
-        json_data = get_tree(id)
-        return json.dumps(json_data)
+        None
 
 class WorkersListAPI(Resource):
     def get(self, owner):
@@ -60,16 +59,16 @@ class WorkersListAPI(Resource):
         return json.dumps(json_data)
 
     def post(self, owner):
-        return get_workers(owner)
+        None
 
 class WorkersAPI(Resource):
     def get(self, id):
         json_data = get_worker(id)
+        json_data['latestSubmission'] = json_data['latestSubmission'].strftime('%m/%d/%Y')
         return json.dumps(json_data)
 
     def post(self, id):
-        json_data = get_worker(id)
-        return json.dumps(json_data)
+        None
 
 
 api.add_resource(ArduinoReportAPI, '/api/health-report/<id>')
