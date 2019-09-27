@@ -3,6 +3,7 @@ import GAListener from 'components/GAListener';
 import { EmptyLayout, LayoutRoute, MainLayout } from 'components/Layout';
 import PageSpinner from 'components/PageSpinner';
 import AuthPage from 'pages/AuthPage';
+import TreePage from 'pages/TreePage';
 import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
@@ -10,6 +11,7 @@ import './styles/reduction.scss';
 
 const AlertPage = React.lazy(() => import('pages/AlertPage'));
 const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
+const TreePage2 = React.lazy(() => import('pages/TreePage'));
 const BadgePage = React.lazy(() => import('pages/BadgePage'));
 const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
 const ButtonPage = React.lazy(() => import('pages/ButtonPage'));
@@ -56,6 +58,7 @@ class App extends React.Component {
               <React.Suspense fallback={<PageSpinner />}>
                 <Route exact path="/" component={DashboardPage} />
                 <Route exact path="/login-modal" component={AuthModalPage} />
+                <Route exact path="/tree" component={TreePage2} />
                 <Route exact path="/buttons" component={ButtonPage} />
                 <Route exact path="/cards" component={CardPage} />
                 <Route exact path="/widgets" component={WidgetPage} />
