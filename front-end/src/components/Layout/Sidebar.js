@@ -25,6 +25,8 @@ import {
   MdViewList,
   MdWeb,
   MdWidgets,
+  MdColorize,
+  MdDetails,
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import {
@@ -82,8 +84,8 @@ const pageContents = [
 
 const navItems = [
   { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
-  { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
-  { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
+  { to: '/cards', name: 'My Trees', exact: false, Icon: MdDetails },
+  // { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
   // { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
 ];
 
@@ -213,7 +215,7 @@ class Sidebar extends React.Component {
               ))}
             </Collapse> */}
 
-            <NavItem
+            {/* <NavItem
               className={bem.e('nav-item')}
               onClick={this.handleClick('Pages')}
             >
@@ -251,7 +253,7 @@ class Sidebar extends React.Component {
                   </BSNavLink>
                 </NavItem>
               ))}
-            </Collapse>
+            </Collapse> */}
           </Nav>
         </div>
       </aside>
