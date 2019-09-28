@@ -4,7 +4,7 @@ import random
 import math
 from random import randrange
 from firebase_admin import credentials, auth, firestore
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 cred = credentials.Certificate('dates-health-service-account.json')
 firebase_admin.initialize_app(cred)
@@ -77,7 +77,7 @@ def generate_farm(owner, workers):
 
 def generate_tree():
     format = '%m/%d/%y %H:%M:%S'
-    date_start = datetime.strptime('01/19/19 13:55:26', format)
+    date_start = datetime.strptime('09/24/17 13:55:26', format)
     date_end = datetime.strptime('09/26/19 13:55:26', format)
     types = ["Barhi", "Thoory", "Halawi", "Medjool", "Khadrawy", "Deglet Noor", "Fard", "Zahidi", "Dayri"]
 
@@ -97,7 +97,7 @@ def generate_tree():
     tree['pesticide'] = pesticide_list
     tree['temp'] = temp_list
 
-    for i in range(random.randint(20, 100)):
+    for i in range(random.randint(100, 200)):
         date = random_date(date_start, date_end)
         harvest_amount = random.randint(20, 150)
         harvest_quality = random.choice(['LOW', 'MID', 'HIGH'])
@@ -237,6 +237,53 @@ def get_worker_trees(worker):
         tree_ids.append(doc.id)
 
     return tree_ids
+
+
+def get_recent(owner):
+    tree_docs = db.collection(u'trees').where(u'owner', u'==', owner).stream()
+    harvest_count = [0 for i in range(24)]
+    water_count = [0, 0]
+    pesticide_count = [0, 0]
+
+    for doc in tree_docs:
+        tree_dict = doc.to_dict()
+        water_list = tree_dict['water']
+        harvest_list = tree_dict['harvest']
+        pest_list = tree_dict['pesticide']
+
+        today = date.today()
+
+        for water in water_list:
+            for i in range(1, 3):
+                d = (today - timedelta(days=30*i))
+                datex = datetime(d.year, d.month, d.day)
+                if water['date'] > datex:
+                    water_count[i-1] += water['amount']
+                    break
+
+        for pest in pest_list:
+            for i in range(1, 3):
+                d = (today - timedelta(days=30*i))
+                datex = datetime(d.year, d.month, d.day)
+                if pest['date'] > datex:
+                    pesticide_count[i-1] += pest['amount']
+                    break
+
+        for harvest in harvest_list:
+            for i in range(1, 25):
+                d = (today - timedelta(days=30*i))
+                datex = datetime(d.year, d.month, d.day)
+                if harvest['date'] > datex:
+                    harvest_count[i-1] += harvest['amount']
+                    break
+
+    data = {
+        'water': water_count,
+        'pesticide': pesticide_count,
+        'harvest': harvest_count
+    }
+
+    return data
 
 if __name__ == '__main__':
     generate_owners(1)

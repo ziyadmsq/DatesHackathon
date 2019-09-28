@@ -130,9 +130,10 @@ function getTempData(arr, label) {
 
   let days = new Map();
   if (arr) {
-    arr.sort(function (a, b) {
-      return a.date > b.date;
+    arr = arr.sort(function (a, b) {
+      return a.date > b.date ? 1 : -1;
     });
+    arr = arr.slice(arr.length / 2, arr.length - 1);
     arr.forEach(entry => {
       if (!days.has(entry.date))
         days.set(entry.date, { min: 10000, max: -10000, sum: 0, count: 0 });
@@ -247,7 +248,7 @@ class TreeComp extends React.Component {
       })
     })
     // open the request with the verb and the url
-    xhr.open('GET', 'http://127.0.0.1:5000/api/tree/16oI3Adinxr8yyLjlfd7')
+    xhr.open('GET', 'http://127.0.0.1:5000/api/tree/1OLlw8Jf3oq3H0Okb7of')
     // send the request
     xhr.send()
   }
@@ -259,7 +260,7 @@ class TreeComp extends React.Component {
         <Card>
           <CardBody>
             <Typography type="display-4">
-              {" Dates Palm " + this.state.tree.row + "," + this.state.tree.col} <br />
+              {" Dates Palm "} <br />
             </Typography>
             <Typography type="h5">
               Age : {this.state.tree.age}<br />
@@ -292,12 +293,12 @@ class TreeComp extends React.Component {
                     <Line data={getTempData(getDegData(this.state.tree.temp), "Tempreture")} />
                   </Card>
                 </Col>
-                <Col xl={6} lg={12} md={12}>
+                <Col xl={12} lg={12} md={12}>
                   <Card>
                     <Line data={getTempData(getHumData(this.state.tree.temp), "Air Humidity")} />
                   </Card>
                 </Col>
-                <Col xl={6} lg={12} md={12}>
+                <Col xl={12} lg={12} md={12}>
                   <Card>
                     <Line data={getTempData(getMosData(this.state.tree.temp), "Soil Moisture")} />
                   </Card>
