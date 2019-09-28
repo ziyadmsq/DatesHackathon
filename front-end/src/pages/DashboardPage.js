@@ -45,77 +45,89 @@ import {
 } from 'reactstrap';
 import { getColor } from 'utils/colors';
 
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-const genLineData = (moreData = {}, moreData2 = {}) => {
-  return {
-    labels: MONTHS,
-    datasets: [
-      {
-        label: new Date().getFullYear(),
-        backgroundColor: getColor('primary'),
-        borderColor: getColor('primary'),
-        borderWidth: 1,
-        data: [
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-        ],
-        ...moreData,
-      },
-      {
-        label: new Date().getFullYear() - 1,
-        backgroundColor: getColor('secondary'),
-        borderColor: getColor('secondary'),
-        borderWidth: 1,
-        data: [
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-        ],
-        ...moreData2,
-      },
-    ],
-  };
-};
+const mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 const today = new Date();
-const lastWeek = new Date(
-  today.getFullYear(),
-  today.getMonth(),
-  today.getDate() - 7,
-);
 
 class DashboardPage extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     // this is needed, because InfiniteCalendar forces window scroll
-    window.scrollTo(0, 0);
+    // this.state = { data: { water: [0, 1], pesticide: [0, 1], harvest: [0], temp: 40, humidity: 50 } };
+    // create a new XMLHttpRequest
+    var xhr = new XMLHttpRequest()
+
+    // get a callback when the server responds
+    xhr.addEventListener('load', () => {
+      let text = xhr.responseText
+      text = text.replace(/\\/g, '');
+      text = text.substring(1, text.length - 2);
+      let tree1 = JSON.parse(text);
+
+      console.log(tree1);
+
+      this.setState({
+        data: tree1,
+      })
+    })
+    // open the request with the verb and the url
+    xhr.open('GET', 'http://localhost:5000/api/recent/9nYhq5mcpaedhY9oM2L2jzmtKdx1')
+    // send the request
+    xhr.send()
+  }
+
+  getData() {
+    let y1 = [];
+    let y2 = [];
+    if (this.state.data) {
+      this.state.data.harvest.forEach(element => {
+        if (y1.length < 12) y1.unshift(element);
+        else y2.unshift(element);
+      });
+    }
+    console.log(y1);
+    console.log(y2);
+    
+    return {
+      labels: mS,
+      datasets: [
+        {
+          label: new Date().getFullYear(),
+          backgroundColor: getColor('primary'),
+          borderColor: getColor('primary'),
+          borderWidth: 1,
+          data: y1,
+          fill:false
+        },{
+          label: new Date().getFullYear() - 1,
+          backgroundColor: getColor('secondary'),
+          borderColor: getColor('secondary'),
+          borderWidth: 1,
+          data: y2,
+          fill:false
+
+        }
+      ],
+    };
   }
 
   render() {
     const primaryColor = getColor('primary');
     const secondaryColor = getColor('secondary');
-
+    if(!this.state)
+      return (<p>loading...</p>);
     return (
       <Page
         className="DashboardPage"
         title="Dashboard"
         breadcrumbs={[{ name: 'Dashboard', active: true }]}
       >
+        
         <Row>
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
               title="Total Harvest"
               subtitle="This year"
-              number="1.8 Tons"
+              number={this.state.data.harvest[0] / 1000 + " Tons"}
               color="secondary"
               progress={{
                 value: 75,
@@ -128,10 +140,10 @@ class DashboardPage extends React.Component {
             <NumberWidget
               title="Total Water Usage"
               subtitle="This month"
-              number="100 Tons"
+              number={this.state.data.water[0] / 1000 + " Tons"}
               color="secondary"
               progress={{
-                value: 87,
+                value: Math.floor(this.state.data.water[0] / this.state.data.water[1] * 100),
                 label: 'Last month',
               }}
             />
@@ -141,10 +153,10 @@ class DashboardPage extends React.Component {
             <NumberWidget
               title="Total Pesticide Usage"
               subtitle="This month"
-              number="3,400"
+              number={this.state.data.pesticide[0] / 1000 + " Kg"}
               color="secondary"
               progress={{
-                value: 90,
+                value: Math.floor(this.state.data.pesticide[0] / this.state.data.pesticide[1] * 100),
                 label: 'Last month',
               }}
             />
@@ -152,12 +164,12 @@ class DashboardPage extends React.Component {
 
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
-              title="Average Tempreture"
+              title="Current Tempreture"
               subtitle="Today"
-              number="42 C"
+              number={this.state.data.degree}
               color="secondary"
               progress={{
-                value: 30,
+                value: this.state.data.air_humidity,
                 label: 'Air Humidity',
               }}
             />
@@ -170,7 +182,7 @@ class DashboardPage extends React.Component {
               <CardHeader>Harvest compared to PREVIOUS year</CardHeader>
               <CardBody>
                 <Line
-                  data={genLineData({ fill: false }, { fill: false })}
+                  data={this.getData()}
                   options={{
                     scales: {
                       xAxes: [
