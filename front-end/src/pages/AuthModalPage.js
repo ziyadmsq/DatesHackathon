@@ -1,6 +1,8 @@
 import AuthForm, { STATE_LOGIN } from 'components/AuthForm';
 import Page from 'components/Page';
 import React from 'react';
+import ImageUploader from 'react-images-upload';
+
 import {
   Button,
   Card,
@@ -30,6 +32,18 @@ class AuthModalPage extends React.Component {
     });
   };
 
+  constructor(props) {
+    super(props);
+     this.state = { pictures: [] };
+     this.onDrop = this.onDrop.bind(this);
+  }
+
+  onDrop(picture) {
+    this.setState({
+        pictures: this.state.pictures.concat(picture),
+    });
+  }
+
   render() {
     const externalCloseBtn = (
       <button
@@ -47,16 +61,23 @@ class AuthModalPage extends React.Component {
 
     return (
       <Page
-        title="Login Modal"
+        title="Test Palm"
         breadcrumbs={[{ name: 'login modal', active: true }]}>
         <Row>
           <Col md="12" sm="12" xs="12">
             <Card>
-              <CardHeader>Login Modal Example</CardHeader>
+              <CardHeader>Test Your Palm!</CardHeader>
               <CardBody>
-                <Button color="danger" onClick={this.toggle}>
+                {/* <Button color="danger" onClick={this.toggle}>
                   Click to Login
-                </Button>
+                </Button> */}
+                <ImageUploader
+                  withIcon={true}
+                  buttonText='Upload your leaf'
+                  onChange={this.onDrop}
+                  imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                  maxFileSize={5242880}
+                />
                 <Modal
                   isOpen={this.state.show}
                   toggle={this.toggle}

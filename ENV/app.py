@@ -2,9 +2,21 @@ from flask import Flask, request, session, render_template, url_for, request, re
 from flask_restful import Resource, Api
 from firebase import *
 import json
+import numpy as np
+from flask import jsonify
+import pickle 
 
 app = Flask(__name__)
 api = Api(app)
+# load the model 
+model = pickle.load(open('../AI-MACHINE-LEARNING-DEEP-LEARNING-IMAGE-RECOGNITION-COMPUTER-VISION/model.pkl','rb'))
+
+@app.route('/api/model',methods=['POST'])
+def predict():
+    data = request.get_json(force=True)
+    prediction = model.predict([[np.array(data['exp'])]])
+    output = prediction[0]
+    return jsonify(output)
 
 class ArduinoReportAPI(Resource):
     def get(self, id):
