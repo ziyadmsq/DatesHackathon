@@ -113,25 +113,25 @@ class DashboardPage extends React.Component {
         <Row>
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
-              title="Total Revenues"
-              subtitle="This month"
-              number="9.8k"
+              title="Total Harvest"
+              subtitle="This year"
+              number="1.8 Tons"
               color="secondary"
               progress={{
                 value: 75,
-                label: 'Last month',
+                label: 'Average Quality',
               }}
             />
           </Col>
 
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
-              title="Monthly Visitors"
+              title="Total Water Usage"
               subtitle="This month"
-              number="5,400"
+              number="100 Tons"
               color="secondary"
               progress={{
-                value: 45,
+                value: 87,
                 label: 'Last month',
               }}
             />
@@ -139,7 +139,7 @@ class DashboardPage extends React.Component {
 
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
-              title="New Users"
+              title="Total Pesticide Usage"
               subtitle="This month"
               number="3,400"
               color="secondary"
@@ -152,13 +152,13 @@ class DashboardPage extends React.Component {
 
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
-              title="Bounce Rate"
-              subtitle="This month"
-              number="38%"
+              title="Average Tempreture"
+              subtitle="Today"
+              number="42 C"
               color="secondary"
               progress={{
-                value: 60,
-                label: 'Last month',
+                value: 30,
+                label: 'Air Humidity',
               }}
             />
           </Col>
@@ -232,7 +232,7 @@ class DashboardPage extends React.Component {
           </Col>
         </Row>
 
-        
+
 
         <Row>
           <Col md="6" sm="12" xs="12">
