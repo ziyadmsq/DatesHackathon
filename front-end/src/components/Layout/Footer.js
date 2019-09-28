@@ -6,9 +6,13 @@ import SourceLink from 'components/SourceLink';
 
 const Footer = () => {
   return (
-    <div>
-
-    </div>
+    <Navbar>
+      <Nav navbar>
+        <NavItem>
+          جميع الحقوق محفو <SourceLink>Github</SourceLink>
+        </NavItem>
+      </Nav>
+    </Navbar>
   );
 };
 
