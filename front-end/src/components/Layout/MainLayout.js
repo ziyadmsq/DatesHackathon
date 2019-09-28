@@ -31,10 +31,10 @@ class MainLayout extends React.Component {
 
       this.notificationSystem.addNotification({
         title: <MdImportantDevices />,
-        message: 'Welome to Reduction Admin!',
+        message: 'Welome to Feras Farm Admin!',
         level: 'info',
       });
-    }, 1500);
+    }, 2500);
 
     setTimeout(() => {
       if (!this.notificationSystem) {
@@ -44,10 +44,10 @@ class MainLayout extends React.Component {
       this.notificationSystem.addNotification({
         title: <MdLoyalty />,
         message:
-          'Reduction is carefully designed template powered by React and Bootstrap4!',
+          'you may need to check palm number 034!',
         level: 'info',
       });
-    }, 2500);
+    }, 3500);
   }
 
   // close sidebar when

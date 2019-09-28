@@ -3,7 +3,10 @@ from flask_restful import Resource, Api
 from firebase import *
 import json
 import numpy as np
+import cv2
 from flask import jsonify
+from sklearn.preprocessing import LabelEncoder
+from PIL import Image
 import pickle
 
 app = Flask(__name__)
@@ -11,12 +14,12 @@ api = Api(app)
 # load the model
 model = pickle.load(open('../AI-MACHINE-LEARNING-DEEP-LEARNING-IMAGE-RECOGNITION-COMPUTER-VISION/model.pkl','rb'))
 
-@app.route('/api/model',methods=['POST'])
-def predict():
-    data = request.get_json(force=True)
-    prediction = model.predict([[np.array(data['exp'])]])
-    output = prediction[0]
-    return jsonify(output)
+def quantify_image(image):
+    features = feature.hog(image, orientations=9,
+        pixels_per_cell=(10, 10), cells_per_block=(2, 2),
+        transform_sqrt=True, block_norm="L1")
+
+    return features
 
 class ArduinoReportAPI(Resource):
     def get(self, id):
@@ -43,6 +46,23 @@ class TreesListAPI(Resource):
 
     def post(self, owner):
         None
+
+class PredictionAPI(Resource):
+    def get(self):
+        return None
+
+    def post(self):
+        image = Image.open(request.files['file'])
+        image = np.array(image)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        image = cv2.resize(image, (200, 200))
+        image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+
+        features = quantify_image(image)
+
+        prediction = model.predict(features)
+        output = prediction[0]
+        return jsonify(output)
 
 class TreesAPI(Resource):
     def get(self, id):
@@ -82,6 +102,14 @@ class WorkersAPI(Resource):
     def post(self, id):
         None
 
+class RecentAPI(Resource):
+    def get(self, owner):
+        json_data = get_recent(owner)
+        return json.dumps(json_data)
+
+    def post(self, owner):
+        None
+
 
 api.add_resource(ArduinoReportAPI, '/api/health-report/<id>')
 
@@ -90,6 +118,10 @@ api.add_resource(WorkersListAPI, '/api/workers/<owner>')
 
 api.add_resource(TreesAPI, '/api/tree/<id>')
 api.add_resource(WorkersAPI, '/api/worker/<id>')
+
+api.add_resource(RecentAPI, '/api/recent/<owner>')
+
+api.add_resource(PredictionAPI, '/api/model')
 
 if __name__ == '__main__':
     app.run(debug=True)
