@@ -7,6 +7,7 @@ import SupportTicket from 'components/SupportTicket';
 import UserProgressTable from 'components/UserProgressTable';
 import { IconWidget, NumberWidget } from 'components/Widget';
 import { getStackLineChart, stackLineChartOptions } from 'demos/chartjs';
+import { randomNum } from 'utils/demos';
 import {
   avatarsData,
   chartjs,
@@ -43,6 +44,48 @@ import {
   Row,
 } from 'reactstrap';
 import { getColor } from 'utils/colors';
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+const genLineData = (moreData = {}, moreData2 = {}) => {
+  return {
+    labels: MONTHS,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        backgroundColor: getColor('primary'),
+        borderColor: getColor('primary'),
+        borderWidth: 1,
+        data: [
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+        ],
+        ...moreData,
+      },
+      {
+        label: 'Dataset 2',
+        backgroundColor: getColor('secondary'),
+        borderColor: getColor('secondary'),
+        borderWidth: 1,
+        data: [
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+        ],
+        ...moreData2,
+      },
+    ],
+  };
+};
 
 const today = new Date();
 const lastWeek = new Date(
@@ -124,13 +167,40 @@ class DashboardPage extends React.Component {
         <Row>
           <Col lg="8" md="12" sm="12" xs="12">
             <Card>
-              <CardHeader>
+            <CardHeader>Stacked Line</CardHeader>
+            <CardBody>
+              <Line
+                data={genLineData()}
+                options={{
+                  scales: {
+                    xAxes: [
+                      {
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Month',
+                        },
+                      },
+                    ],
+                    yAxes: [
+                      {
+                        stacked: true,
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Value',
+                        },
+                      },
+                    ],
+                  },
+                }}
+              />
+            </CardBody>
+              {/* <CardHeader>
                 Total palms{' '}
                 <small className="text-muted text-capitalize">This year</small>
-              </CardHeader>
-              <CardBody>
+              </CardHeader> */}
+              {/* <CardBody>
                 <Line data={chartjs.line.data} options={chartjs.line.options} />
-              </CardBody>
+              </CardBody> */}
             </Card>
           </Col>
 
