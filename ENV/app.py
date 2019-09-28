@@ -14,7 +14,7 @@ class ArduinoReportAPI(Resource):
         json_data = request.get_json()
 
         data = {
-            'id': json_data.get('id'),
+            'id': id,
             'degree': json_data.get('temp'),
             'soil_humidity': json_data.get('soilMoisture'),
             'air_humidity': json_data.get('airHumidity')
