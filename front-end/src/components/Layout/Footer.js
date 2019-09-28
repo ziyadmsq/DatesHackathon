@@ -8,9 +8,9 @@ const Footer = () => {
   return (
     <Navbar>
       <Nav navbar>
-        <NavItem>
+        {/* <NavItem>
           جميع الحقوق محفو <SourceLink>Github</SourceLink>
-        </NavItem>
+        </NavItem> */}
       </Nav>
     </Navbar>
   );

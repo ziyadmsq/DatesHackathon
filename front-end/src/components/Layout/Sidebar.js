@@ -114,8 +114,8 @@ class Sidebar extends React.Component {
         <div className={bem.e('background')} style={sidebarBackground} />
         <div className={bem.e('content')}>
           <Navbar>
-            <span className="text-white navbar-brand d-flex">
-              Feras Farm
+            <span className="text-white navbar-brand d-flex" style={{fontSize:40}}>
+              FHMS
             </span>
           </Navbar>
           <Nav vertical>
