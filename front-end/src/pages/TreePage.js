@@ -40,7 +40,7 @@ function getWaterData(tree) {
   let labels = [];
   let values = [];
 
-  tree.water.forEach(element => {
+  tree.water.slice(tree.water.length * 2 / 3, tree.water.length - 1).forEach(element => {
     labels.push(element.date);
     values.push(element.amount);
   });
@@ -64,7 +64,7 @@ function getHarvestQuantityData(tree) {
   let labels = [];
   let values1 = [];
 
-  tree.harvest.forEach(element => {
+  tree.harvest.slice(tree.harvest.length * 3 / 4, tree.harvest.length - 1).forEach(element => {
     labels.push(element.date);
     values1.push(element.amount);
   });
@@ -86,7 +86,7 @@ function getHarvestQualityData(tree) {
   let labels = [];
   let values1 = [];
   const qualities = ["LOW", "MID", "HIGH"];
-  tree.harvest.forEach(element => {
+  tree.harvest.slice(tree.harvest.length * 3 / 4, tree.harvest.length - 1).forEach(element => {
     labels.push(element.date);
     values1.push(qualities.indexOf(element.quality) + 1);
   });
@@ -107,7 +107,7 @@ function getPesticideData(tree) {
   let labels = [];
   let values1 = [];
 
-  tree.pesticide.forEach(element => {
+  tree.pesticide.slice(tree.pesticide.length * 3 / 4, tree.pesticide.length - 1).forEach(element => {
     labels.push(element.date);
     values1.push(element.amount);
   });
