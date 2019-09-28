@@ -257,7 +257,7 @@ def get_recent(owner):
             for i in range(1, 3):
                 d = (today - timedelta(days=30*i))
                 datex = datetime(d.year, d.month, d.day)
-                if water['date'] > datex:
+                if water['date'].replace(tzinfo=None) > datex:
                     water_count[i-1] += water['amount']
                     break
 
@@ -265,7 +265,7 @@ def get_recent(owner):
             for i in range(1, 3):
                 d = (today - timedelta(days=30*i))
                 datex = datetime(d.year, d.month, d.day)
-                if pest['date'] > datex:
+                if pest['date'].replace(tzinfo=None) > datex:
                     pesticide_count[i-1] += pest['amount']
                     break
 
@@ -273,7 +273,7 @@ def get_recent(owner):
             for i in range(1, 25):
                 d = (today - timedelta(days=30*i))
                 datex = datetime(d.year, d.month, d.day)
-                if harvest['date'] > datex:
+                if harvest['date'].replace(tzinfo=None) > datex:
                     harvest_count[i-1] += harvest['amount']
                     break
 
