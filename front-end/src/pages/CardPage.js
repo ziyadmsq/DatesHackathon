@@ -29,7 +29,7 @@ function createnakh() {
   let data = [];
   for (let i = 1; i <= 100; i++) {
     data.push(<Col md={2} sm={2} xs={3} className="mb-3">
-      <a href="http://localhost:3000/login">
+      <a href="http://localhost:3000/tree">
         <Card className="flex-row">
           <div style={{ float: "none", margin: "0 auto" }} >
             <img

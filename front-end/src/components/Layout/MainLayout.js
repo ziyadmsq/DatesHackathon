@@ -31,7 +31,7 @@ class MainLayout extends React.Component {
 
       this.notificationSystem.addNotification({
         title: <MdImportantDevices />,
-        message: 'Welome to Feras Farm Admin!',
+        message: 'Welome to Farm Health Managment System Admin!',
         level: 'info',
       });
     }, 2500);

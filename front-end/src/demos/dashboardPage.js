@@ -24,44 +24,30 @@ export const productsData = [
   {
     id: 1,
     image: product1Image,
-    title: 'badr ',
-    description: 'Responsive admin template...',
-    right: '$36',
+    title: 'Sikary',
+    description: 'Currant dates pricing',
+    right: 'SR36',
   },
   {
     id: 2,
     image: product2Image,
-    title: 'zyad',
-    description: 'Manage your schedule...',
-    right: '$9',
+    title: 'Ajwa Al-Madina',
+    description: 'Currant dates pricing',
+    right: 'SR9',
   },
   {
     id: 3,
     image: product3Image,
-    title: 'obadh',
-    description: 'Realtime chat application...',
-    right: '$12',
+    title: 'Barhi',
+    description: 'Currant dates pricing',
+    right: 'SR12',
   },
   {
     id: 4,
     image: product4Image,
-    title: 'Wordpress Business Theme',
-    description: 'Over 100+ templates and pages...',
-    right: '$24',
-  },
-  {
-    id: 5,
-    image: product5Image,
-    title: 'Camera App',
-    description: 'Over 30+ filter...',
-    right: '$6.99',
-  },
-  {
-    id: 6,
-    image: product6Image,
-    title: 'Calendar App',
-    description: 'Organize your schedule...',
-    right: '$0.99',
+    title: 'Saqaai',
+    description: 'Currant dates pricing',
+    right: 'SR24',
   },
 ];
 
@@ -241,7 +227,7 @@ export const chartjs = {
       },
       tooltips: {
         mode: 'index',
-        intersect: false,
+        intersect: true,
       },
       responsive: true,
       legend: {
@@ -251,13 +237,13 @@ export const chartjs = {
         xAxes: [
           {
             stacked: true,
-            display: false,
+            display: true,
           },
         ],
         yAxes: [
           {
             stacked: true,
-            display: false,
+            display: true,
           },
         ],
       },

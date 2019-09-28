@@ -9,14 +9,12 @@ import {
   Row,
 } from 'reactstrap';
 
-import Page from 'components/Page';
 import Typography from 'components/Typography';
-import { Line, Pie, Doughnut, Bar, Radar, Polar } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 
 
 //TODO
 const tree = {
-  row: 2, col: 3,
   type: "Ajwah",
   yearPlanted: 2000,
   harvest: [{ date: "2019-9-10", amount: 70, quality: "HIGH" }, { date: "2019-9-20", amount: 60, quality: "MID" }, { date: "2019-9-25", amount: 70, quality: "HIGH" }],
