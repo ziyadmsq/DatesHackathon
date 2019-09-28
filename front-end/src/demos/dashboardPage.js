@@ -1,11 +1,11 @@
-import product1Image from 'assets/img/products/product_640-1.jpg';
-import product2Image from 'assets/img/products/product_640-2.jpg';
-import product3Image from 'assets/img/products/product_640-3.jpg';
-import product4Image from 'assets/img/products/product_640-4.jpg';
-import product5Image from 'assets/img/products/product_640-5.jpg';
-import product6Image from 'assets/img/products/product_640-6.jpg';
+import product1Image from 'assets/img/products/dates.png';
+import product2Image from 'assets/img/products/dates.png';
+import product3Image from 'assets/img/products/dates.png';
+import product4Image from 'assets/img/products/dates.png';
+import product5Image from 'assets/img/products/dates.png';
+import product6Image from 'assets/img/products/dates.png';
 
-import user1Image from 'assets/img/users/100_1.jpg';
+import user1Image from 'assets/img/products/100_4.png';
 import user2Image from 'assets/img/users/100_2.jpg';
 import user3Image from 'assets/img/users/100_3.jpg';
 import user4Image from 'assets/img/users/100_4.jpg';
@@ -24,21 +24,21 @@ export const productsData = [
   {
     id: 1,
     image: product1Image,
-    title: 'Admin Template',
+    title: 'badr ',
     description: 'Responsive admin template...',
     right: '$36',
   },
   {
     id: 2,
     image: product2Image,
-    title: 'Schedule App',
+    title: 'zyad',
     description: 'Manage your schedule...',
     right: '$9',
   },
   {
     id: 3,
     image: product3Image,
-    title: 'Chat App',
+    title: 'obadh',
     description: 'Realtime chat application...',
     right: '$12',
   },
@@ -141,37 +141,37 @@ export const avatarsData = [
 export const userProgressTableData = [
   {
     avatar: user1Image,
-    name: 'Tom',
-    date: '3 month ago',
+    name: 'badr',
+    date: 'zeyad',
     progress: 75,
   },
   {
-    avatar: user2Image,
-    name: 'Jenny',
+    avatar: user1Image,
+    name: 'feras',
     date: '1 year ago',
     progress: 60,
   },
   {
-    avatar: user3Image,
-    name: 'Sim',
+    avatar: user1Image,
+    name: 'obadih',
     date: '2 hour ago',
     progress: 50,
   },
   {
-    avatar: user4Image,
-    name: 'Christine',
+    avatar: user1Image,
+    name: 'saleh',
     date: 'a month ago',
     progress: 40,
   },
   {
-    avatar: user5Image,
-    name: 'Bread',
+    avatar: user1Image,
+    name: 'khaled',
     date: '6 months ago',
     progress: 30,
   },
   {
-    avatar: user6Image,
-    name: 'Dan',
+    avatar: user1Image,
+    name: 'mohammed',
     date: '2 years ago',
     progress: 25,
   },

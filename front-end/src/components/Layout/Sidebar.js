@@ -84,7 +84,7 @@ const navItems = [
   { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
   { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
   { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
-  { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
+  // { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
 ];
 
 const bem = bn.create('sidebar');
@@ -121,7 +121,7 @@ class Sidebar extends React.Component {
                 alt=""
               />
               <span className="text-white">
-                Reduction <FaGithub />
+                Feras Farm 
               </span>
             </SourceLink>
           </Navbar>
@@ -142,7 +142,7 @@ class Sidebar extends React.Component {
               </NavItem>
             ))}
 
-            <NavItem
+            {/* <NavItem
               className={bem.e('nav-item')}
               onClick={this.handleClick('Components')}
             >
@@ -180,9 +180,9 @@ class Sidebar extends React.Component {
                   </BSNavLink>
                 </NavItem>
               ))}
-            </Collapse>
+            </Collapse> */}
 
-            <NavItem
+            {/* <NavItem
               className={bem.e('nav-item')}
               onClick={this.handleClick('Contents')}
             >
@@ -220,7 +220,7 @@ class Sidebar extends React.Component {
                   </BSNavLink>
                 </NavItem>
               ))}
-            </Collapse>
+            </Collapse> */}
 
             <NavItem
               className={bem.e('nav-item')}

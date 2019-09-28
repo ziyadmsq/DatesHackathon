@@ -25,10 +25,12 @@ import {
 } from 'reactstrap';
 
 function createnakh() {
+  console.log("HI find me!")
   let data = [];
   for (let i = 1; i <= 100; i++) {
     data.push(<Col md={2} sm={2} xs={3} className="mb-3">
-      <a href="http://localhost:3000/login"><Card className="flex-row">
+      <a href="http://localhost:3000/login"> 
+      <Card className="flex-row">
       <div style={{textAlign:"center",marginLeft:35}} >
       <CardImg 
               className="card-img-left"
@@ -36,7 +38,7 @@ function createnakh() {
               style={{ width: 40, height: 30 ,marginLeft:10,marginTop:20}}
             />   
       <CardBody>
-          <CardTitle >نخلة رقم {i}</CardTitle>
+          <CardTitle >نخلة رقم {i} </CardTitle>
         </CardBody>
         </div>
       </Card>
