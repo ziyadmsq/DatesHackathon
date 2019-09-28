@@ -208,13 +208,13 @@ export const chartjs = {
       datasets: [
         {
           label: 'Expense for this year',
-          backgroundColor: '#6a82fb',
+          backgroundColor: '#114b26',
           stack: 'Expense',
           data: [10000, 30000, 50000, 80000, 60000, 20000, 10000],
         },
         {
           label: 'Expense for last year',
-          backgroundColor: '#fc5c7d',
+          backgroundColor: '#45b649',
           stack: 'Expense',
           data: [30000, 80000, 50000, 100000, 60000, 40000, 90000],
         },
