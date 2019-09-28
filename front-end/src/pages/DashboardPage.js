@@ -45,11 +45,27 @@ import {
 } from 'reactstrap';
 import { getColor } from 'utils/colors';
 
+import { ClipLoader } from "react-spinners";
+import { css } from '@emotion/core';
+
+// Can be a string as well. Need to ensure each key-value pair ends with ;
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: green;`;
+
 const mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 const today = new Date();
 
 class DashboardPage extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     loading: true,
+  //     data:null
+  //   }
+  // }
   componentWillMount() {
     // this is needed, because InfiniteCalendar forces window scroll
     // this.state = { data: { water: [0, 1], pesticide: [0, 1], harvest: [0], temp: 40, humidity: 50 } };
@@ -114,7 +130,15 @@ class DashboardPage extends React.Component {
     const primaryColor = getColor('primary');
     const secondaryColor = getColor('secondary');
     if(!this.state)
-      return (<p>loading...</p>);
+      return (<div className='sweet-loading'>
+      <ClipLoader
+        css={override}
+        sizeUnit={"px"}
+        size={150}
+        color={'#123abc'}
+        loading={true}
+      />
+    </div> );
     return (
       <Page
         className="DashboardPage"
