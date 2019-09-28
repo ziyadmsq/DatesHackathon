@@ -7,6 +7,7 @@ import SupportTicket from 'components/SupportTicket';
 import UserProgressTable from 'components/UserProgressTable';
 import { IconWidget, NumberWidget } from 'components/Widget';
 import { getStackLineChart, stackLineChartOptions } from 'demos/chartjs';
+import { randomNum } from 'utils/demos';
 import {
   avatarsData,
   chartjs,
@@ -44,6 +45,48 @@ import {
 } from 'reactstrap';
 import { getColor } from 'utils/colors';
 
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+const genLineData = (moreData = {}, moreData2 = {}) => {
+  return {
+    labels: MONTHS,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        backgroundColor: getColor('primary'),
+        borderColor: getColor('primary'),
+        borderWidth: 1,
+        data: [
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+        ],
+        ...moreData,
+      },
+      {
+        label: 'Dataset 2',
+        backgroundColor: getColor('secondary'),
+        borderColor: getColor('secondary'),
+        borderWidth: 1,
+        data: [
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+          randomNum(),
+        ],
+        ...moreData2,
+      },
+    ],
+  };
+};
+
 const today = new Date();
 const lastWeek = new Date(
   today.getFullYear(),
@@ -70,25 +113,25 @@ class DashboardPage extends React.Component {
         <Row>
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
-              title="Total Revenues"
-              subtitle="This month"
-              number="9.8k"
+              title="Total Harvest"
+              subtitle="This year"
+              number="1.8 Tons"
               color="secondary"
               progress={{
                 value: 75,
-                label: 'Last month',
+                label: 'Average Quality',
               }}
             />
           </Col>
 
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
-              title="Monthly Visitors"
+              title="Total Water Usage"
               subtitle="This month"
-              number="5,400"
+              number="100 Tons"
               color="secondary"
               progress={{
-                value: 45,
+                value: 87,
                 label: 'Last month',
               }}
             />
@@ -96,7 +139,7 @@ class DashboardPage extends React.Component {
 
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
-              title="New Users"
+              title="Total Pesticide Usage"
               subtitle="This month"
               number="3,400"
               color="secondary"
@@ -109,13 +152,13 @@ class DashboardPage extends React.Component {
 
           <Col lg={3} md={6} sm={6} xs={12}>
             <NumberWidget
-              title="Bounce Rate"
-              subtitle="This month"
-              number="38%"
+              title="Average Tempreture"
+              subtitle="Today"
+              number="42 C"
               color="secondary"
               progress={{
-                value: 60,
-                label: 'Last month',
+                value: 30,
+                label: 'Air Humidity',
               }}
             />
           </Col>
@@ -124,13 +167,40 @@ class DashboardPage extends React.Component {
         <Row>
           <Col lg="8" md="12" sm="12" xs="12">
             <Card>
-              <CardHeader>
+            <CardHeader>Stacked Line</CardHeader>
+            <CardBody>
+              <Line
+                data={genLineData()}
+                options={{
+                  scales: {
+                    xAxes: [
+                      {
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Month',
+                        },
+                      },
+                    ],
+                    yAxes: [
+                      {
+                        stacked: true,
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Value',
+                        },
+                      },
+                    ],
+                  },
+                }}
+              />
+            </CardBody>
+              {/* <CardHeader>
                 Total palms{' '}
                 <small className="text-muted text-capitalize">This year</small>
-              </CardHeader>
-              <CardBody>
+              </CardHeader> */}
+              {/* <CardBody>
                 <Line data={chartjs.line.data} options={chartjs.line.options} />
-              </CardBody>
+              </CardBody> */}
             </Card>
           </Col>
 
@@ -162,7 +232,7 @@ class DashboardPage extends React.Component {
           </Col>
         </Row>
 
-        
+
 
         <Row>
           <Col md="6" sm="12" xs="12">

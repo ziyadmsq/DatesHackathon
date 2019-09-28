@@ -62,7 +62,7 @@ class AuthModalPage extends React.Component {
     return (
       <Page
         title="Test Palm"
-        breadcrumbs={[{ name: 'login modal', active: true }]}>
+        breadcrumbs={[{ name: 'check palm', active: true }]}>
         <Row>
           <Col md="12" sm="12" xs="12">
             <Card>

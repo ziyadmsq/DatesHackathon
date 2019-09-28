@@ -117,7 +117,7 @@ function getPesticideData(tree) {
   return {
     labels: labels,
     datasets: [{
-      label: "Harvest Quality",
+      label: "Pesticide usage",
       backgroundColor: getColor('warning'),
       borderColor: getColor('warning'),
       borderWidth: 1,
@@ -129,12 +129,18 @@ function getPesticideData(tree) {
 function getTempData(arr, label) {
 
   let days = new Map();
-  arr.forEach(entry => {
-    if (!days.has(entry.date))
-      days.set(entry.date, { min: 10000, max: -10000, sum: 0, count: 0 });
-    let day = days.get(entry.date);
-    days.set(entry.date, { date: entry.date, min: Math.min(day.min, entry.value), max: Math.max(day.max, entry.value), sum: day.sum + entry.value, count: day.count + 1 });
-  });
+  if (arr) {
+    arr = arr.sort(function (a, b) {
+      return a.date > b.date ? 1 : -1;
+    });
+    arr = arr.slice(arr.length / 2, arr.length - 1);
+    arr.forEach(entry => {
+      if (!days.has(entry.date))
+        days.set(entry.date, { min: 10000, max: -10000, sum: 0, count: 0 });
+      let day = days.get(entry.date);
+      days.set(entry.date, { date: entry.date, min: Math.min(day.min, entry.value), max: Math.max(day.max, entry.value), sum: day.sum + entry.value, count: day.count + 1 });
+    });
+  }
   let labels = [];
   let min = [];
   let max = [];
@@ -181,61 +187,127 @@ function getTempData(arr, label) {
   };
 }
 
+function getDegData(arr) {
+  let res = [];
+  arr.forEach(element => {
+    res.push({ date: element.date, value: element.degree });
+  });
+  return res;
+}
+function getHumData(arr) {
+  let res = [];
+  arr.forEach(element => {
+    res.push({ date: element.date, value: element.air_humidity });
+  });
+  return res;
+}
+function getMosData(arr) {
+  let res = [];
+  arr.forEach(element => {
+    res.push({ date: element.date, value: element.soil_humidity });
+  });
+  return res;
+}
+
 const TreePage = () => {
   // console.log(new Date().getYear() + " hi ");
 
   return (
     <div className="container">
-      <Col>
+      <TreeComp />
+    </div>
+  );
+};
+
+export default TreePage;
+
+
+class TreeComp extends React.Component {
+  componentWillMount() {
+    this.state = { tree: tree };
+    this.getData();
+  }
+
+  getData() {
+    // create a new XMLHttpRequest
+    var xhr = new XMLHttpRequest()
+
+    // get a callback when the server responds
+    xhr.addEventListener('load', () => {
+      // update the state of the component with the result here
+      let text = xhr.responseText
+      text = text.replace(/\\/g, '');
+      text = text.substring(1, text.length - 2);
+      let tree1 = JSON.parse(text);
+      // console.log(tree1);
+      // console.log(tree);
+
+
+      this.setState({
+        tree: tree1,
+      })
+    })
+    // open the request with the verb and the url
+    xhr.open('GET', 'http://127.0.0.1:5000/api/tree/1OLlw8Jf3oq3H0Okb7of')
+    // send the request
+    xhr.send()
+  }
+
+
+  render() {
+    return (
+      < Col >
         <Card>
           <CardBody>
             <Typography type="display-4">
-              {" Dates Palm " + tree.row + "," + tree.col} <br />
+              {" Dates Palm "} <br />
             </Typography>
             <Typography type="h5">
-              Age : {new Date().getFullYear() - tree.yearPlanted}<br />
+              Age : {this.state.tree.age}<br />
             </Typography>
             <hr />
             <Card>
               <Row>
                 <Col xl={6} lg={12} md={12}>
                   <Card>
-                    <Line data={getWaterData(tree)} />
+                    <Line data={getWaterData(this.state.tree)} />
                   </Card>
                 </Col>
                 <Col xl={6} lg={12} md={12}>
                   <Card>
-                    <Bar data={getHarvestQuantityData(tree)} />
+                    <Bar data={getHarvestQuantityData(this.state.tree)} />
                   </Card>
                 </Col>
                 <Col xl={6} lg={12} md={12}>
                   <Card>
-                    <Bar data={getHarvestQualityData(tree)} />
+                    <Bar data={getHarvestQualityData(this.state.tree)} />
                   </Card>
                 </Col>
                 <Col xl={6} lg={12} md={12}>
                   <Card>
-                    <Bar data={getPesticideData(tree)} />
+                    <Bar data={getPesticideData(this.state.tree)} />
                   </Card>
                 </Col>
-                <Col xl={6} lg={12} md={12}>
+                <Col xl={12} lg={12} md={12}>
                   <Card>
-                    <Line data={getTempData(tree.temp, "Tempreture")} />
+                    <Line data={getTempData(getDegData(this.state.tree.temp), "Tempreture")} />
                   </Card>
                 </Col>
-                <Col xl={6} lg={12} md={12}>
+                <Col xl={12} lg={12} md={12}>
                   <Card>
-                    <Line data={getTempData(tree.humidity, "Humidity")} />
+                    <Line data={getTempData(getHumData(this.state.tree.temp), "Air Humidity")} />
+                  </Card>
+                </Col>
+                <Col xl={12} lg={12} md={12}>
+                  <Card>
+                    <Line data={getTempData(getMosData(this.state.tree.temp), "Soil Moisture")} />
                   </Card>
                 </Col>
               </Row>
             </Card>
           </CardBody>
         </Card>
-      </Col>
-
-    </div>
-  );
-};
-
-export default TreePage;
+      </Col >)
+      ;
+  }
+}
