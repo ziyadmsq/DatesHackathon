@@ -277,10 +277,18 @@ def get_recent(owner):
                     harvest_count[i-1] += harvest['amount']
                     break
 
+        temp = tree_dict['temp'][-1]
+        degree = temp['degree']
+        soil_humidity = temp['soil_humidity']
+        air_humidity = temp['air_humidity']
+
     data = {
         'water': water_count,
         'pesticide': pesticide_count,
-        'harvest': harvest_count
+        'harvest': harvest_count,
+        'degree': degree,
+        'air_humidity': air_humidity,
+        'soil_humidity': soil_humidity
     }
 
     return data
