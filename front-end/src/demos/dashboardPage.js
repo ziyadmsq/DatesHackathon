@@ -241,7 +241,7 @@ export const chartjs = {
       },
       tooltips: {
         mode: 'index',
-        intersect: false,
+        intersect: true,
       },
       responsive: true,
       legend: {
@@ -251,13 +251,13 @@ export const chartjs = {
         xAxes: [
           {
             stacked: true,
-            display: false,
+            display: true,
           },
         ],
         yAxes: [
           {
             stacked: true,
-            display: false,
+            display: true,
           },
         ],
       },
